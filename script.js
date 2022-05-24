@@ -91,7 +91,7 @@ const renderActors = (actors) => {
     } poster">
         <h3>${actor.name}</h3>`;
       actorDiv.addEventListener("click", () => {
-        ActorDetails(actor);
+        actorDetails(actor);
     });
     CONTAINER.appendChild(actorDiv);
   });
