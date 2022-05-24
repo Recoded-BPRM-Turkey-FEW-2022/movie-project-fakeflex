@@ -43,9 +43,8 @@ const renderMovies = (movies) => {
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
-      movie.title
-    } poster">
+        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
+      } poster">
         <h3>${movie.title}</h3>`;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
@@ -59,15 +58,13 @@ const renderMovie = (movie) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
-             <img id="movie-backdrop" src=${
-              PROFILE_BASE_URL + movie.backdrop_path
-             }>
+             <img id="movie-backdrop" src=${PROFILE_BASE_URL + movie.backdrop_path
+    }>
         </div>
         <div class="col-md-8">
             <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
-            }</p>
+            <p id="movie-release-date"><b>Release Date:</b> ${movie.release_date
+    }</p>
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
@@ -78,30 +75,40 @@ const renderMovie = (movie) => {
     </div>`;
 };
 
-const fetchActor = async (ActorId) => {   // http://api.themoviedb.org/3/person/18277?api_key=542003918769df50083a13c415bbc602
+const actorDetails = async (actor) => {
+  const ActorRes = await fetchActor(actor.id);
+  renderActor(ActorRes);
+};
+
+const fetchActor = async (ActorId) => {             // http://api.themoviedb.org/3/person/18277?api_key=542003918769df50083a13c415bbc602
   const url = constructUrl(`person/${ActorId}`);
   const res = await fetch(url);
   return res.json();
 };
 
-const renderActor = (actor) => {
+const renderActor = (actor) => {                    // later: actorCredit param
   CONTAINER.innerHTML = `
-    <div class="row">
-        <div class="col-md-4">
-             <img id="actor-profilePath" src=${
-               BACKDROP_BASE_URL + actor.profile_path
-             }>
-        </div>
-        <div class="col-md-8">
-            <h2 id="actor-name">${actor.name}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              actor.birthday
-            }</p>
-            <p id="actor-birthPlace"><b>Place of birth:</b> ${actor.place_of_birth} Minutes</p>
-            <h3>biography:</h3>
-            <p id="actor-biography">${actor.biography}</p>
-        </div>
-    </div>`;
+  <div class="row " id="single-actor-page">
+  <div class="col-lg-4 col-md-12 col-sm-12">
+    <img id="actor-backdrop" src=${actor.backdropUrl}> 
+  </div>
+  <div class="col-lg-8 col-md-12 col-sm-12">
+    <h2 id="actor-name"><span>${actor.name}</span></h2>
+    <h4>Gender:</h4>
+    <p id="gender">${actor.gender}</p>
+    <h4>Popularity:</h4>
+    <p id="popularity">${actor.popularity}</p>
+    <h4>Birthday:</h4>
+    <p id="birthday">${actor.birthday}</p>
+    ${actor.deathday}
+    <h4>Biography:</h4>
+     <p id="biography" style="color:#BDBDBD; font-size: .8rem;">${actor.biography}</p>
+  </div>
+  <div class="container" >
+    <h4 class="row" style="padding:1rem;"> Related Movies:</h4> 
+    <div class="row"> ${actorCredit.credits}</div>
+  </div>
+</div>`;
 };
 
 
