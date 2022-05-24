@@ -74,12 +74,17 @@ const renderMovie = (movie) => {
         </div>
         </div>
             <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
+            <ul id="actors" class="list-unstyled">${actors} </ul>
     </div>`;
 };
+document.addEventListener("DOMContentLoaded", autorun)
 
-document.addEventListener("DOMContentLoaded", autorun);
-
+// This function is to fetch Actors.
+const fetchActors = async () => {
+  const url = constructUrl(`person/popular`);
+  const res = await fetch(url);
+  return res.json();
+};
 
 // This function is to render actors.
 const renderActors = (actors) => {
@@ -104,3 +109,11 @@ const runActors = async () => {
 };
 
 // actors.addEventListener("click", runActors);
+
+
+
+
+
+
+
+
