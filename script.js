@@ -60,7 +60,7 @@ const renderMovie = (movie) => {
     <div class="row">
         <div class="col-md-4">
              <img id="movie-backdrop" src=${
-               BACKDROP_BASE_URL + movie.backdrop_path
+              PROFILE_BASE_URL + movie.backdrop_path
              }>
         </div>
         <div class="col-md-8">
@@ -77,5 +77,35 @@ const renderMovie = (movie) => {
             <ul id="actors" class="list-unstyled"></ul>
     </div>`;
 };
+
+const fetchActor = async (ActorId) => {   // http://api.themoviedb.org/3/person/18277?api_key=542003918769df50083a13c415bbc602
+  const url = constructUrl(`person/${ActorId}`);
+  const res = await fetch(url);
+  return res.json();
+};
+
+const renderActor = (actor) => {
+  CONTAINER.innerHTML = `
+    <div class="row">
+        <div class="col-md-4">
+             <img id="actor-profilePath" src=${
+               BACKDROP_BASE_URL + actor.profile_path
+             }>
+        </div>
+        <div class="col-md-8">
+            <h2 id="actor-name">${actor.name}</h2>
+            <p id="movie-release-date"><b>Release Date:</b> ${
+              actor.birthday
+            }</p>
+            <p id="actor-birthPlace"><b>Place of birth:</b> ${actor.place_of_birth} Minutes</p>
+            <h3>biography:</h3>
+            <p id="actor-biography">${actor.biography}</p>
+        </div>
+    </div>`;
+};
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", autorun);
