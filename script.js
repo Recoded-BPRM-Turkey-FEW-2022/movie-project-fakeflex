@@ -21,7 +21,8 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
-  renderMovie(movieRes);
+  const movieCrds= await fetchMoviesCredits(movie.id);
+  renderMovie(movieRes,movieCrds);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -55,7 +56,7 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie) => {
+const renderMovie = (movie,credits) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -71,11 +72,63 @@ const renderMovie = (movie) => {
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
+            <p id="vote_average"> <b>vote Average:</b> ${movie.vote_average}    
+             <b>Vote Count: </b> ${movie.vote_count} </p>
+            <p id="original_language"><b>language:</b> ${movie.original_language} </p>
+            <p id="director"> <b>Director: </b></p>
         </div>
         </div>
             <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
+            <ul id="actors" class="list-unstyled">
+            </ul>
     </div>`;
+   const actors = document.getElementById('actors');
+    for(let i=0 ; i<5 ; i++){ 
+      const actorLi =document.createElement('li') ;
+      const actorH3 =document.createElement('h3') ;
+      actorH3.innerHTML =`${credits.cast[i].name}`;
+      const actorphoto =document.createElement('img') ;
+      actorphoto.src=PROFILE_BASE_URL+ credits.cast[i].profile_path;
+      actors.append(actorLi);
+      actorLi.append(actorphoto);
+      actorLi.append(actorH3);
+    };
+    // let directorIn= -1;
+    // for(let i=0 ; i<credits.crew.length ; i++){
+    // directorIn = credits.crew[i].job.indexOf('Director');
+    // console.log(directorIn);
+    // if (directorIn!==-1){
+    //   console.log(credits.crew[directorIn].name);
+      
+    // }
+    // console.log(credits.crew[directorIn].name);
+
+  };
+
+ 
+
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
+
+const fetchMoviesCredits = async (moiveID) => {
+  const url = constructUrl(`movie/${moiveID}/credits`);
+  const res = await fetch(url);
+  const Cast = await res.json();
+  console.log(Cast);
+  return Cast
+};
+// fetchMoviesCredits(moiveID);
+
+const MoviesCast =async () =>{
+  await fetchMoviesCredits(moiveID);
+  for(let i=0 ; i<5 ; i++){ 
+  console.log(Cast.cast[i].name);
+  console.log(Cast.cast[i].profile_path);
+
+};
+}
+// MoviesCast()
+
+
+
