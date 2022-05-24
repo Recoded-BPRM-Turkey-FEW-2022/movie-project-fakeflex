@@ -77,7 +77,7 @@ const renderMovie = (movie) => {
             <ul id="actors" class="list-unstyled">${actors} </ul>
     </div>`;
 };
-document.addEventListener("DOMContentLoaded", autorun);
+document.addEventListener("DOMContentLoaded", autorun)
 
 // This function is to fetch Actors.
 const fetchActors = async () => {
@@ -85,6 +85,33 @@ const fetchActors = async () => {
   const res = await fetch(url);
   return res.json();
 };
+
+// This function is to render actors.
+const renderActors = (actors) => {
+  actors.map((actor) => {
+    const actorDiv = document.createElement("div");
+    actorDiv.innerHTML = `
+        <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="${
+      actor.title
+    } poster">
+        <h3>${actor.name}</h3>`;
+      actorDiv.addEventListener("click", () => {
+        actorDetails(actor);
+    });
+    CONTAINER.appendChild(actorDiv);
+  });
+};
+
+//this to show the actors lists when clicked in nav bar for (actors-list) but it is not compeleted yet
+const runActors = async () => {
+  const actors = await fetchActors();
+ renderActors(actors.results);
+};
+
+// actors.addEventListener("click", runActors);
+
+
+
 
 
 
