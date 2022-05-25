@@ -4,6 +4,8 @@ const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
+const genresList = document.getElementById("genresList");
+
 
 // Don't touch this function please
 const autorun = async () => {
@@ -26,11 +28,15 @@ const runPopularMovies = async () => {
   renderMovies(movies.results);
 };
 
+const runGenreMovie = async (genreId) => {
+  const moives = await fetchMoviesByGenre(genreId);
+  renderMovies(moives.results);
+}
+
 const runLatestMovies = async () => {
   const movies = await fetchLatestMovies(); //}&sort_by=release_date.desc
   renderMovies(movies.results);
 };
-
 
 // Don't touch this function please
 const constructUrl = (path) => {
@@ -39,13 +45,25 @@ const constructUrl = (path) => {
   )}`;
 };
 
+const constructGenreUrl = (genreId) => {
+  return `${TMDB_BASE_URL}/discover/movie?api_key=${atob(
+    "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
+  )}&with_genres=${genreId}`;
+}
+
+const fetchMoviesByGenre = async (genreId) => {
+  const url = constructGenreUrl(genreId);
+  const res = await fetch(url);
+  return res.json();
+};
+
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
-  const movieRes= await fetchMovie(movie.id);
-  const movieCrds= await fetchMoviesCredits(movie.id);
-  const movieRelat= await fetchRelatedMovies(movie.id);
-  const movieVedio= await fetchMoviesTrailer(movie.id);
-  renderMovie(movieRes,movieCrds,movieRelat,movieVedio);
+  const movieRes = await fetchMovie(movie.id);
+  const movieCrds = await fetchMoviesCredits(movie.id);
+  const movieRelat = await fetchRelatedMovies(movie.id);
+  const movieVedio = await fetchMoviesTrailer(movie.id);
+  renderMovie(movieRes, movieCrds, movieRelat, movieVedio);
 };
 
 const fetchFilteredMovies = async (filter) => {
@@ -70,10 +88,10 @@ const fetchMovie = async (movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
-  CONTAINER.innerHTML = ""; 
+  CONTAINER.innerHTML = "";
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
-    
+
     movieDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
       } poster">
@@ -86,7 +104,7 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie,credits,similars,vedio) => {
+const renderMovie = (movie, credits, similars, vedio) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -122,61 +140,64 @@ const renderMovie = (movie,credits,similars,vedio) => {
 
     </div>`;
 
-    //to get 5 Actors in the movie
-   const actors = document.getElementById('actors');
-    for(let i=0 ; i<5 ; i++){
-      const actorLi =document.createElement('li') ;
-      const actorphoto =document.createElement('img') ;
-      const actorH3 =document.createElement('h4') ;
-      actorH3.innerHTML =`${credits.cast[i].name}`;
-      actorphoto.src=PROFILE_BASE_URL+ credits.cast[i].profile_path;
-      actors.append(actorLi);
-      actorLi.append(actorphoto);
-      actorLi.append(actorH3);
-    };
-
-    //to get companies name and logo
-    const companies= document.getElementById('companies');
-    for(let i=0 ; i<2 ; i++){
-      const company=document.createElement('li');
-      const companyName=document.createElement('h4');
-      const companyPhoto=document.createElement('img');
-
-      companyName.innerHTML=`${movie.production_companies[i].name}`
-      companyPhoto.src= BACKDROP_BASE_URL+ movie.production_companies[i].logo_path;
-      console.log(BACKDROP_BASE_URL+ movie.production_companies[i].logo_path)
-      companies.append(company);
-      company.append(companyName);
-      company.append(companyPhoto);
+  //to get 5 Actors in the movie
+  const actors = document.getElementById('actors');
+  for (let i = 0; i < 5; i++) {
+    const actorLi = document.createElement('li');
+    actorLi.addEventListener("click", () => {
+      actorDetails(credits.cast[i]);
+    })
+    const actorphoto = document.createElement('img');
+    const actorH3 = document.createElement('h4');
+    actorH3.innerHTML = `${credits.cast[i].name}`;
+    actorphoto.src = PROFILE_BASE_URL + credits.cast[i].profile_path;
+    actors.append(actorLi);
+    actorLi.append(actorphoto);
+    actorLi.append(actorH3);
   };
 
-    //to get 5 related movies
-    const Related = document.getElementById('Related');
-    for(let i=0 ; i<5 ; i++){
-      const relatedMo =document.createElement('li') ;
-      const MovieName =document.createElement('h4') ;
-      const MoviePhoto =document.createElement('img') ;
-      MovieName.innerHTML =`${similars[i].title}`;
-      MoviePhoto.src=BACKDROP_BASE_URL+ similars[i].backdrop_path;
-      Related.append(relatedMo);
-      relatedMo.append(MoviePhoto);
-      relatedMo.append(MovieName);
-    };
+  //to get companies name and logo
+  const companies = document.getElementById('companies');
+  for (let i = 0; i < 2; i++) {
+    const company = document.createElement('li');
+    const companyName = document.createElement('h4');
+    const companyPhoto = document.createElement('img');
+
+    companyName.innerHTML = `${movie.production_companies[i].name}`
+    companyPhoto.src = BACKDROP_BASE_URL + movie.production_companies[i].logo_path;
+    console.log(BACKDROP_BASE_URL + movie.production_companies[i].logo_path)
+    companies.append(company);
+    company.append(companyName);
+    company.append(companyPhoto);
+  };
+
+  //to get 5 related movies
+  const Related = document.getElementById('Related');
+  for (let i = 0; i < 5; i++) {
+    const relatedMo = document.createElement('li');
+    const MovieName = document.createElement('h4');
+    const MoviePhoto = document.createElement('img');
+    MovieName.innerHTML = `${similars[i].title}`;
+    MoviePhoto.src = BACKDROP_BASE_URL + similars[i].backdrop_path;
+    Related.append(relatedMo);
+    relatedMo.append(MoviePhoto);
+    relatedMo.append(MovieName);
+  };
 
   //to get the trailer(VEDIO)
-  for(let i=0 ; i<vedio.length ; i++){
-    const vedioT =document.getElementById('vedio');
-    vedioT.innerHTML=`<iframe src=https://www.youtube.com/embed/${vedio[i].key} width="400" height="240" autoplay>
+  for (let i = 0; i < vedio.length; i++) {
+    const vedioT = document.getElementById('vedio');
+    vedioT.innerHTML = `<iframe src=https://www.youtube.com/embed/${vedio[i].key} width="400" height="240" autoplay>
     </video>
     <h3>Trailer</h3>`;
   };
 
-    //to get the director name 
-    for(let i=0 ; i<credits.crew.length ; i++){
-    if (credits.crew[i].job==='Director'){
-    const directorName =`${credits.crew[i].name}`;
-    const director= document.getElementById('director');
-    director.innerHTML =`<b>Director</b>: ${directorName}`;
+  //to get the director name 
+  for (let i = 0; i < credits.crew.length; i++) {
+    if (credits.crew[i].job === 'Director') {
+      const directorName = `${credits.crew[i].name}`;
+      const director = document.getElementById('director');
+      director.innerHTML = `<b>Director</b>: ${directorName}`;
     };
 
   };
@@ -270,6 +291,98 @@ const renderActor = (actor) => {                    // later: actorCredit param.
 </div>`;
 };
 
+const genresArraylist = [
+  {
+    "id": 28,
+    "name": "Action"
+  },
+  {
+    "id": 12,
+    "name": "Adventure"
+  },
+  {
+    "id": 16,
+    "name": "Animation"
+  },
+  {
+    "id": 35,
+    "name": "Comedy"
+  },
+  {
+    "id": 80,
+    "name": "Crime"
+  },
+  {
+    "id": 99,
+    "name": "Documentary"
+  },
+  {
+    "id": 18,
+    "name": "Drama"
+  },
+  {
+    "id": 10751,
+    "name": "Family"
+  },
+  {
+    "id": 14,
+    "name": "Fantasy"
+  },
+  {
+    "id": 36,
+    "name": "History"
+  },
+  {
+    "id": 27,
+    "name": "Horror"
+  },
+  {
+    "id": 10402,
+    "name": "Music"
+  },
+  {
+    "id": 9648,
+    "name": "Mystery"
+  },
+  {
+    "id": 10749,
+    "name": "Romance"
+  },
+  {
+    "id": 878,
+    "name": "Science Fiction"
+  },
+  {
+    "id": 10770,
+    "name": "TV Movie"
+  },
+  {
+    "id": 53,
+    "name": "Thriller"
+  },
+  {
+    "id": 10752,
+    "name": "War"
+  },
+  {
+    "id": 37,
+    "name": "Western"
+  }
+]
+
+const renderGenresList = (genresArraylist) => {
+  for (let i of genresArraylist) {
+    const genre = document.createElement("a");
+    genre.innerHTML = `<a class="dropdown-item" href="#">${i.name}</a>`;
+    genre.addEventListener("click", () => {
+      runGenreMovie(i.id);
+    })
+    genresList.append(genre);
+
+  }
+}
+
+renderGenresList(genresArraylist);
 const renderAbout = () => {
   CONTAINER.innerHTML = `
   <div>
@@ -277,3 +390,5 @@ const renderAbout = () => {
   </div>`
 }
 
+document.addEventListener("DOMContentLoaded", autorun);
+// document.addEventListener("DOMContentLoaded", renderGenresList);
