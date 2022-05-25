@@ -118,7 +118,7 @@ const fetchActor = async (ActorId) => {             // http://api.themoviedb.org
   return res.json();
 };
 
-const renderActor = (actor) => {                    // later: actorCredit param
+const renderActor = (actor) => {                    // later: actorCredit param. deathday
   CONTAINER.innerHTML = `
   <div class="row " id="single-actor-page">
   <div class="col-lg-4 col-md-12 col-sm-12">
@@ -141,3 +141,11 @@ const renderActor = (actor) => {                    // later: actorCredit param
   </div>
 </div>`;
 };
+
+const renderAbout = () => {
+  // CONTAINER.innerHTML = "";
+  CONTAINER.innerHTML = `
+  <div>
+    <p>This is the about section</p> 
+  </div>`
+}
