@@ -16,3 +16,20 @@
   max-width: 100%;
   height: auto;
 }
+
+/* .sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+} */
+
+nav{
+  display: flex;
+  background-color: rgb(39, 36, 36);
+  position: sticky;
+  top: 0;
+}
