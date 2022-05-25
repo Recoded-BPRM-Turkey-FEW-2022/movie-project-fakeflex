@@ -40,8 +40,10 @@ const fetchMovie = async (movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+  CONTAINER.innerHTML = ""; 
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
+    
     movieDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
       } poster">
@@ -71,7 +73,6 @@ const renderMovie = (movie) => {
         </div>
         </div>
             <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled">${actors} </ul>
     </div>`;
 };
 
@@ -86,15 +87,15 @@ const fetchActors = async () => {
 
 // This function is to render actors.
 const renderActors = (actors) => {
+  CONTAINER.innerHTML = "";
   actors.map((actor) => {
     const actorDiv = document.createElement("div");
     actorDiv.innerHTML = `
-        <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="${
-      actor.title
-    } poster">
+        <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="${actor.title
+      } poster">
         <h3>${actor.name}</h3>`;
-      actorDiv.addEventListener("click", () => {
-        actorDetails(actor);
+    actorDiv.addEventListener("click", () => {
+      actorDetails(actor);
     });
     CONTAINER.appendChild(actorDiv);
   });
@@ -103,11 +104,8 @@ const renderActors = (actors) => {
 //this to show the actors lists when clicked in nav bar for (actors-list) but it is not compeleted yet
 const runActors = async () => {
   const actors = await fetchActors();
- renderActors(actors.results);
+  renderActors(actors.results);
 };
-
-// actors.addEventListener("click", runActors);
-
 
 const actorDetails = async (actor) => {
   const ActorRes = await fetchActor(actor.id);
@@ -120,11 +118,11 @@ const fetchActor = async (ActorId) => {             // http://api.themoviedb.org
   return res.json();
 };
 
-const renderActor = (actor) => {                    // later: actorCredit param
+const renderActor = (actor) => {                    // later: actorCredit param. deathday
   CONTAINER.innerHTML = `
   <div class="row " id="single-actor-page">
   <div class="col-lg-4 col-md-12 col-sm-12">
-    <img id="actor-backdrop" src=${actor.backdropUrl}> 
+    <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}> 
   </div>
   <div class="col-lg-8 col-md-12 col-sm-12">
     <h2 id="actor-name"><span>${actor.name}</span></h2>
@@ -140,7 +138,14 @@ const renderActor = (actor) => {                    // later: actorCredit param
   </div>
   <div class="container" >
     <h4 class="row" style="padding:1rem;"> Related Movies:</h4> 
-    <div class="row"> ${actorCredit.credits}</div>
   </div>
 </div>`;
 };
+
+const renderAbout = () => {
+  // CONTAINER.innerHTML = "";
+  CONTAINER.innerHTML = `
+  <div>
+    <p>This is the about section</p> 
+  </div>`
+}
