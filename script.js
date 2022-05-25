@@ -7,9 +7,30 @@ const CONTAINER = document.querySelector(".container");
 
 // Don't touch this function please
 const autorun = async () => {
-  const movies = await fetchMovies();
+  const movies = await fetchFilteredMovies("now_playing");
   renderMovies(movies.results);
 };
+
+const runTopRatedMovies = async () => {
+  const movies = await fetchFilteredMovies("top_rated");
+  renderMovies(movies.results);
+};
+
+const runUpcomingMovies = async () => {
+  const movies = await fetchFilteredMovies("upcoming");
+  renderMovies(movies.results);
+};
+
+const runPopularMovies = async () => {
+  const movies = await fetchFilteredMovies("popular");
+  renderMovies(movies.results);
+};
+
+const runLatestMovies = async () => {
+  const movies = await fetchLatestMovies(); //}&sort_by=release_date.desc
+  renderMovies(movies.results);
+};
+
 
 // Don't touch this function please
 const constructUrl = (path) => {
@@ -27,9 +48,15 @@ const movieDetails = async (movie) => {
   renderMovie(movieRes,movieCrds,movieRelat,movieVedio);
 };
 
-// This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
-const fetchMovies = async () => {
-  const url = constructUrl(`movie/now_playing`);
+const fetchFilteredMovies = async (filter) => {
+  const url = constructUrl(`movie/${filter}`);
+  const res = await fetch(url);
+  return res.json();
+};
+
+const fetchLatestMovies = async () => {
+  const url = `${TMDB_BASE_URL}/discover/movie?api_key=${atob(
+    'NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI=')}&sort_by=release_date.desc`;
   const res = await fetch(url);
   return res.json();
 };
@@ -244,7 +271,6 @@ const renderActor = (actor) => {                    // later: actorCredit param.
 };
 
 const renderAbout = () => {
-  // CONTAINER.innerHTML = "";
   CONTAINER.innerHTML = `
   <div>
     <p>This is the about section</p> 

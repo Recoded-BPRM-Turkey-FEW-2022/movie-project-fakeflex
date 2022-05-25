@@ -47,18 +47,17 @@
                 Filter
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Popular</a>
-                <a class="dropdown-item" href="#">Release Date</a>
-                <a class="dropdown-item" href="#">Top Rated</a>
+                <a class="dropdown-item" href="#" onclick="runPopularMovies()">Popular</a>
+                <a class="dropdown-item" href="#" onclick="runLatestMovies()">Release Date</a>
+                <a class="dropdown-item" href="#" onclick="runTopRatedMovies()">Top Rated</a>
+                <a class="dropdown-item" href="#" onclick="autorun()">Now Playing</a>
+                <a class="dropdown-item" href="#" onclick="runUpcomingMovies()">Upcoming</a>
                 <div class="dropdown-divider"></div>
               </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" onclick="renderAbout()">About</a>
               </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
