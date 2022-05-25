@@ -63,6 +63,7 @@ const movieDetails = async (movie) => {
   const movieCrds = await fetchMoviesCredits(movie.id);
   const movieRelat = await fetchRelatedMovies(movie.id);
   const movieVedio = await fetchMoviesTrailer(movie.id);
+  topFunction();
   renderMovie(movieRes, movieCrds, movieRelat, movieVedio);
 };
 
@@ -165,7 +166,6 @@ const renderMovie = (movie, credits, similars, vedio) => {
 
     companyName.innerHTML = `${movie.production_companies[i].name}`
     companyPhoto.src = BACKDROP_BASE_URL + movie.production_companies[i].logo_path;
-    console.log(BACKDROP_BASE_URL + movie.production_companies[i].logo_path)
     companies.append(company);
     company.append(companyName);
     company.append(companyPhoto);
@@ -175,6 +175,9 @@ const renderMovie = (movie, credits, similars, vedio) => {
   const Related = document.getElementById('Related');
   for (let i = 0; i < 5; i++) {
     const relatedMo = document.createElement('li');
+    relatedMo.addEventListener("click", () => {
+      movieDetails(similars[i]);
+    })
     const MovieName = document.createElement('h4');
     const MoviePhoto = document.createElement('img');
     MovieName.innerHTML = `${similars[i].title}`;
@@ -250,24 +253,32 @@ const renderActors = (actors) => {
   });
 };
 
-//this to show the actors lists when clicked in nav bar for (actors-list) but it is not compeleted yet
 const runActors = async () => {
   const actors = await fetchActors();
   renderActors(actors.results);
 };
 
 const actorDetails = async (actor) => {
-  const ActorRes = await fetchActor(actor.id);
-  renderActor(ActorRes);
+  const actorRes = await fetchActor(actor.id);
+  const actorCredits = await fetchActorCredits(actor.id);
+  topFunction();
+  renderActor(actorRes, actorCredits);
 };
 
-const fetchActor = async (ActorId) => {             // http://api.themoviedb.org/3/person/18277?api_key=542003918769df50083a13c415bbc602
-  const url = constructUrl(`person/${ActorId}`);
+const fetchActor = async (actorId) => {             // http://api.themoviedb.org/3/person/18277?api_key=542003918769df50083a13c415bbc602
+  const url = constructUrl(`person/${actorId}`);
   const res = await fetch(url);
   return res.json();
 };
 
-const renderActor = (actor) => {                    // later: actorCredit param. deathday
+const fetchActorCredits = async (actorId) => {
+  const url = constructUrl(`person/${actorId}/movie_credits`);
+  const res = await fetch(url);
+  const Cast = await res.json();
+  return Cast
+};
+
+const renderActor = (actor, actorCredits) => {
   CONTAINER.innerHTML = `
   <div class="row " id="single-actor-page">
   <div class="col-lg-4 col-md-12 col-sm-12">
@@ -281,16 +292,46 @@ const renderActor = (actor) => {                    // later: actorCredit param.
     <p id="popularity">${actor.popularity}</p>
     <h4>Birthday:</h4>
     <p id="birthday">${actor.birthday}</p>
-    ${actor.deathday}
     <h4>Biography:</h4>
      <p id="biography" style="color:#BDBDBD; font-size: .8rem;">${actor.biography}</p>
   </div>
   <div class="container" >
-    <h4 class="row" style="padding:1rem;"> Related Movies:</h4> 
+    <h4 class="row" style="padding:1rem;" > Related Movies:</h4>
+    <ul id="relatedMovies">
+
+    </ul>
   </div>
 </div>`;
-};
 
+  // If actor is dead
+
+  const birthDeathday = document.getElementById("birthday");
+  if (actor.deathday !== null) {
+    birthDeathday.append(document.createElement("span").textContent = actor.deathday);
+  }
+
+  // Actor related movies
+
+  const relatedMovies = document.getElementById("relatedMovies");
+
+  for (let i = 0; i < actorCredits.cast.length && i < 5; i++) {
+
+    const movieli = document.createElement("li");
+
+    movieli.addEventListener("click", () => {
+      movieDetails(actorCredits.cast[i]);
+    });
+    const movieImage = document.createElement("img");
+    movieImage.src = `${BACKDROP_BASE_URL + actorCredits.cast[i].poster_path}`;
+
+    const movieName = document.createElement("h4");
+    movieName.textContent = actorCredits.cast[i].title;
+
+    relatedMovies.append(movieli);
+    movieli.append(movieImage);
+    movieli.append(movieName);
+  }
+};
 const genresArraylist = [
   {
     "id": 28,
@@ -372,8 +413,11 @@ const genresArraylist = [
 
 const renderGenresList = (genresArraylist) => {
   for (let i of genresArraylist) {
+
     const genre = document.createElement("a");
+
     genre.innerHTML = `<a class="dropdown-item" href="#">${i.name}</a>`;
+
     genre.addEventListener("click", () => {
       runGenreMovie(i.id);
     })
@@ -383,6 +427,7 @@ const renderGenresList = (genresArraylist) => {
 }
 
 renderGenresList(genresArraylist);
+
 const renderAbout = () => {
   CONTAINER.innerHTML = `
   <div>
@@ -390,5 +435,8 @@ const renderAbout = () => {
   </div>`
 }
 
+function topFunction() {
+  document.documentElement.scrollTop = 0;
+}
+
 document.addEventListener("DOMContentLoaded", autorun);
-// document.addEventListener("DOMContentLoaded", renderGenresList);
