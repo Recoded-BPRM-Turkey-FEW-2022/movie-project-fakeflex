@@ -43,12 +43,13 @@ const fetchMovie = async (movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+  CONTAINER.innerHTML = ""; 
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
+    
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
-      movie.title
-    } poster">
+        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
+      } poster">
         <h3>${movie.title}</h3>`;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
@@ -62,15 +63,13 @@ const renderMovie = (movie,credits,similars,vedio) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
-             <img id="movie-backdrop" src=${
-               BACKDROP_BASE_URL + movie.backdrop_path
-             }>
+             <img id="movie-backdrop" src=${PROFILE_BASE_URL + movie.backdrop_path
+    }>
         </div>
         <div class="col-md-8">
             <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
-            }</p>
+            <p id="movie-release-date"><b>Release Date:</b> ${movie.release_date
+    }</p>
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
@@ -85,6 +84,7 @@ const renderMovie = (movie,credits,similars,vedio) => {
         </div>
           <div>
             <h3>Actors:</h3>
+
             <ul id="actors" class="list-unstyled">
             </ul>
             </div>
@@ -92,6 +92,7 @@ const renderMovie = (movie,credits,similars,vedio) => {
             <h3>Related Movies:</h3>
             <ul id="Related" class="list-unstyled">
             </ul>
+
     </div>`;
 
     //to get 5 Actors in the movie
@@ -154,8 +155,6 @@ const renderMovie = (movie,credits,similars,vedio) => {
   };
 };
 
-document.addEventListener("DOMContentLoaded", autorun);
-
 //fetching all data of crew and cast (credits)
 const fetchMoviesCredits = async (moiveID) => {
   const url = constructUrl(`movie/${moiveID}/credits`);
@@ -180,7 +179,75 @@ const fetchRelatedMovies = async (moiveID) => {
   return relatedMoveis.results;
 };
 
+// This function is to fetch Actors
+const fetchActors = async () => {
+  const url = constructUrl(`person/popular`);
+  const res = await fetch(url);
+  return res.json();
+};
 
+// This function is to render actors
+const renderActors = (actors) => {
+  CONTAINER.innerHTML = "";
+  actors.map((actor) => {
+    const actorDiv = document.createElement("div");
+    actorDiv.innerHTML = `
+        <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="${actor.title
+      } poster">
+        <h3>${actor.name}</h3>`;
+    actorDiv.addEventListener("click", () => {
+      actorDetails(actor);
+    });
+    CONTAINER.appendChild(actorDiv);
+  });
+};
 
+//this to show the actors lists when clicked in nav bar for (actors-list) but it is not compeleted yet
+const runActors = async () => {
+  const actors = await fetchActors();
+  renderActors(actors.results);
+};
 
+const actorDetails = async (actor) => {
+  const ActorRes = await fetchActor(actor.id);
+  renderActor(ActorRes);
+};
+
+const fetchActor = async (ActorId) => {             // http://api.themoviedb.org/3/person/18277?api_key=542003918769df50083a13c415bbc602
+  const url = constructUrl(`person/${ActorId}`);
+  const res = await fetch(url);
+  return res.json();
+};
+
+const renderActor = (actor) => {                    // later: actorCredit param. deathday
+  CONTAINER.innerHTML = `
+  <div class="row " id="single-actor-page">
+  <div class="col-lg-4 col-md-12 col-sm-12">
+    <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}> 
+  </div>
+  <div class="col-lg-8 col-md-12 col-sm-12">
+    <h2 id="actor-name"><span>${actor.name}</span></h2>
+    <h4>Gender:</h4>
+    <p id="gender">${actor.gender}</p>
+    <h4>Popularity:</h4>
+    <p id="popularity">${actor.popularity}</p>
+    <h4>Birthday:</h4>
+    <p id="birthday">${actor.birthday}</p>
+    ${actor.deathday}
+    <h4>Biography:</h4>
+     <p id="biography" style="color:#BDBDBD; font-size: .8rem;">${actor.biography}</p>
+  </div>
+  <div class="container" >
+    <h4 class="row" style="padding:1rem;"> Related Movies:</h4> 
+  </div>
+</div>`;
+};
+
+const renderAbout = () => {
+  // CONTAINER.innerHTML = "";
+  CONTAINER.innerHTML = `
+  <div>
+    <p>This is the about section</p> 
+  </div>`
+}
 
