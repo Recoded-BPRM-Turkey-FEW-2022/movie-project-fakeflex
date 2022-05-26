@@ -97,7 +97,7 @@ const renderMovies = (movies) => {
 
     movieDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
-      } poster" id="movie-img">
+      } poster" id="movie-img" onerror="this.src='https://thumbs.dreamstime.com/b/unknown-concept-word-blackboard-background-written-140315057.jpg';">
         <p id="${movie.id}" class="centered">Rating: ${movie.vote_average}/10</p>
         <h3 id="movie-title">${movie.title}</h3>`;
 
@@ -117,6 +117,11 @@ const renderMovies = (movies) => {
       movieDiv.style.scale = 1;
     });
 
+    // if(!BACKDROP_BASE_URL + movie.backdrop_path) {
+    //   const movieImage = document.getElementById("movie-img");
+    //   movieImage.src = "https://thumbs.dreamstime.com/b/unknown-concept-word-blackboard-background-written-140315057.jpg";
+    // }
+
     CONTAINER.appendChild(movieDiv);
 
     movieDiv.classList.add("movie-div", "flashing");
@@ -130,11 +135,6 @@ const renderMovies = (movies) => {
 //   const moiveDiv = document.getElementById(`${movie.id}Div`);
 //   moiveDiv.classList.toggle("movie-hover")
 // }
-
-function myFunction() {
-  var element = document.getElementById("myDIV");
-  element.classList.toggle("mystyle");
-}
 
 const movieOnhover = (movie) => {
   const rating = document.getElementById(movie.id);
@@ -195,6 +195,10 @@ const renderMovie = (movie, credits, similars, video) => {
     const actorH3 = document.createElement('h4');
     actorH3.innerHTML = `${credits.cast[i].name}`;
     actorphoto.src = PROFILE_BASE_URL + credits.cast[i].profile_path;
+    actorphoto.onerror = () => {
+      placeholderImage("actor", actorphoto);
+    }
+    
     actors.append(actorLi);
     actorLi.append(actorphoto);
     actorLi.append(actorH3);
@@ -334,7 +338,7 @@ const renderActors = (actors) => {
 
     actorDiv.innerHTML = `
         <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="${actor.title
-      } poster" class="actor-img" style="width:100%">
+      } poster" class="actor-img" onerror="this.src='./images/actor-placehoder.jpg';" style="width:100%">
         <h3 id="actor-name">${actor.name}</h3>`;
     actorDiv.addEventListener("click", () => {
       actorDetails(actor);
@@ -396,7 +400,7 @@ const fetchActorCredits = async (actorId) => {
   return Cast
 };
 
-const renderActor = (actor, actorCredits) => {
+const renderActor = (actor, actorCredits) => { 
   CONTAINER.classList.remove("movies", "actor-div");
   CONTAINER.classList.remove("movies");
   CONTAINER.innerHTML = `
@@ -450,6 +454,9 @@ const renderActor = (actor, actorCredits) => {
     });
     const movieImage = document.createElement("img");
     movieImage.src = `${BACKDROP_BASE_URL + actorCredits.cast[i].poster_path}`;
+    movieImage.onerror = () => {
+      placeholderImage("movie", movieImage);
+    };
 
     const movieName = document.createElement("h4");
     movieName.textContent = actorCredits.cast[i].title;
@@ -459,6 +466,16 @@ const renderActor = (actor, actorCredits) => {
     movieli.append(movieName);
   }
 };
+
+const placeholderImage = (type, image) => {
+  if(type === "actor") {
+    image.src = "./images/actor-placehoder.jpg";
+  }
+  else if (type === "movie"){
+    image.src = "https://thumbs.dreamstime.com/b/unknown-concept-word-blackboard-background-written-140315057.jpg";
+  }
+}
+
 const genresArraylist = [
   {
     "id": 28,
