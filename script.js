@@ -62,9 +62,9 @@ const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const movieCrds = await fetchMoviesCredits(movie.id);
   const movieRelat = await fetchRelatedMovies(movie.id);
-  const movieVedio = await fetchMoviesTrailer(movie.id);
+  const movieVideo = await fetchMoviesTrailer(movie.id);
   topFunction();
-  renderMovie(movieRes, movieCrds, movieRelat, movieVedio);
+  renderMovie(movieRes, movieCrds, movieRelat, movieVideo);
 };
 
 const fetchFilteredMovies = async (filter) => {
@@ -105,7 +105,7 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie, credits, similars, vedio) => {
+const renderMovie = (movie, credits, similars, Video) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -125,7 +125,7 @@ const renderMovie = (movie, credits, similars, vedio) => {
             <p id="director"> </p>
         </div>
         </div>
-        <div id="vedio">
+        <div id="video">
         
         </div>
           <div>
@@ -189,10 +189,10 @@ const renderMovie = (movie, credits, similars, vedio) => {
     relatedMo.append(MovieName);
   };
 
-  //to get the trailer(VEDIO)
-  for (let i = 0; i < vedio.length; i++) {
-    const vedioT = document.getElementById('vedio');
-    vedioT.innerHTML = `<iframe src=https://www.youtube.com/embed/${vedio[i].key} width="400" height="240" autoplay>
+  //to get the trailer(VIDEO)
+  for (let i = 0; i < video.length; i++) {
+    const videoT = document.getElementById('video');
+    videoT.innerHTML = `<iframe src=https://www.youtube.com/embed/${video[i].key} width="400" height="240" autoplay>
     </video>
     <h3>Trailer</h3>`;
   };
@@ -220,8 +220,8 @@ const fetchMoviesCredits = async (moiveID) => {
 const fetchMoviesTrailer = async (moiveID) => {
   const url = constructUrl(`movie/${moiveID}/videos`);
   const res = await fetch(url);
-  const vedio = await res.json();
-  return vedio.results;
+  const video = await res.json();
+  return video.results;
 };
 
 // fetching the most related movies (similar moives)
@@ -344,6 +344,13 @@ const renderActor = (actor, actorCredits) => {
   </div>
 </div>`;
 
+  const gender = document.getElementById("gender");
+  if(gender.innerText === "1") {
+    gender.textContent = "Female";
+  }
+  else if (gender.innerText === "2") {
+    gender.textContent = "Male";
+  }
   // If actor is dead
 
   const birthDeathday = document.getElementById("birthday");
