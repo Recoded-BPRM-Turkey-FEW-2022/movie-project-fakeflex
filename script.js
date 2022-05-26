@@ -157,6 +157,7 @@ const renderMovie = (movie, credits, similars, vedio) => {
     actorLi.append(actorH3);
   };
 
+
   //to get companies name and logo
   const companies = document.getElementById('companies');
   for (let i = 0; i < 2; i++) {
@@ -169,6 +170,7 @@ const renderMovie = (movie, credits, similars, vedio) => {
     companies.append(company);
     company.append(companyName);
     company.append(companyPhoto);
+
   };
 
   //to get 5 related movies
@@ -229,6 +231,45 @@ const fetchRelatedMovies = async (moiveID) => {
   const relatedMoveis = await res.json();
   return relatedMoveis.results;
 };
+
+//fetch the data which will be used in search function & creating new url because query is needed
+const searchConstructUrl = (path,searchValue) => {
+  return `${TMDB_BASE_URL}/${path}?api_key=${atob(
+    "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
+  )}&query=${searchValue}`;
+};
+const fetchSearch = async (searchInfo) => {
+  const url = searchConstructUrl(`search/multi`,`${searchInfo}`)
+  console.log(url);
+  const res = await fetch(url);
+  const FindData = await res.json();
+  return FindData.results;
+
+};
+
+//render the search results 
+const renderSearch = async (result) => {
+  const resultData = await fetchSearch(result);
+   for(let i=0 ;  i<resultData.length ; i++){
+    if(resultData[i].media_type==="movie"){
+      CONTAINER.innerHTML = ""
+      return renderMovies(resultData);
+    }
+    else if(resultData.results[i].media_type==="person"){
+      CONTAINER.innerHTML = ""
+    return renderActors(resultData);
+    };
+    
+  };
+}
+//adding EventListener to the search button in the nav bar 
+const searchBtn= document.getElementById("searchBtn");
+const searchInput= document.getElementById("searchInput");
+searchBtn.addEventListener("click",async (e)=>{
+  e.preventDefault();
+  const inputValue = searchInput.value;
+  return renderSearch(inputValue);
+});
 
 // This function is to fetch Actors
 const fetchActors = async () => {
@@ -440,3 +481,4 @@ function topFunction() {
 }
 
 document.addEventListener("DOMContentLoaded", autorun);
+
