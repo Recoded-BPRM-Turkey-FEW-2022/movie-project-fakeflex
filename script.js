@@ -89,6 +89,7 @@ const fetchMovie = async (movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+  CONTAINER.classList.remove("actors");
   CONTAINER.innerHTML = "";
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
@@ -99,7 +100,7 @@ const renderMovies = (movies) => {
       } poster" id="movie-img">
         <p id="${movie.id}" class="centered">Rating: ${movie.vote_average}/10</p>
         <h3 id="movie-title">${movie.title}</h3>`;
-     
+
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
@@ -112,14 +113,13 @@ const renderMovies = (movies) => {
 
     movieDiv.addEventListener("mouseleave", () => {
       movieOnleave(movie);
-      movieDiv.style.scale = 1;
-      
       movieDiv.style.backgroundColor = "rgba(254, 254, 254, 0.5)";
+      movieDiv.style.scale = 1;
     });
 
     CONTAINER.appendChild(movieDiv);
-    
-    movieDiv.classList.add("movie-div");
+
+    movieDiv.classList.add("movie-div", "flashing");
     const rating = document.getElementById(movie.id);
     rating.style.visibility = "hidden";
   });
@@ -134,7 +134,7 @@ const renderMovies = (movies) => {
 function myFunction() {
   var element = document.getElementById("myDIV");
   element.classList.toggle("mystyle");
-} 
+}
 
 const movieOnhover = (movie) => {
   const rating = document.getElementById(movie.id);
@@ -146,11 +146,9 @@ const movieOnleave = (movie) => {
   rating.style.visibility = "hidden";
 }
 
-const movieMouseLeft = (movie) => {
-}
-
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie, credits, similars, video) => {
+  CONTAINER.classList.remove("movies", "actor-div");
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -278,41 +276,43 @@ const fetchRelatedMovies = async (moiveID) => {
 };
 
 //fetch the data which will be used in search function & creating new url because query is needed
-const searchConstructUrl = (path,searchValue) => {
+const searchConstructUrl = (path, searchValue) => {
   return `${TMDB_BASE_URL}/${path}?api_key=${atob(
     "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
   )}&query=${searchValue}`;
 };
+
 const fetchSearch = async (searchInfo) => {
-  const url = searchConstructUrl(`search/multi`,`${searchInfo}`)
+  const url = searchConstructUrl(`search/multi`, `${searchInfo}`)
   console.log(url);
   const res = await fetch(url);
   const FindData = await res.json();
   return FindData.results;
-
 };
 
 //render the search results 
 const renderSearch = async (result) => {
   const resultData = await fetchSearch(result);
-   for(let i=0 ;  i<resultData.length ; i++){
-    if(resultData[i].media_type==="movie"){
+  for (let i = 0; i < resultData.length; i++) {
+    if (resultData[i].media_type === "movie") {
       CONTAINER.innerHTML = ""
       return renderMovies(resultData);
     }
-    else if(resultData.results[i].media_type==="person"){
+    else if (resultData.results[i].media_type === "person") {
       CONTAINER.innerHTML = ""
-    return renderActors(resultData);
+      return renderActors(resultData);
     };
-    
+
   };
 }
 //adding EventListener to the search button in the nav bar 
-const searchBtn= document.getElementById("searchBtn");
-const searchInput= document.getElementById("searchInput");
-searchBtn.addEventListener("click",async (e)=>{
+const searchBtn = document.getElementById("searchBtn");
+const searchInput = document.getElementById("searchInput");
+
+searchBtn.addEventListener("click", async (e) => {
   e.preventDefault();
   const inputValue = searchInput.value;
+  searchInput.value = "";
   return renderSearch(inputValue);
 });
 
@@ -325,20 +325,51 @@ const fetchActors = async () => {
 
 // This function is to render actors
 const renderActors = (actors) => {
+  CONTAINER.classList.remove("movies");
   CONTAINER.innerHTML = "";
+
   actors.map((actor) => {
     const actorDiv = document.createElement("div");
+    actorDiv.id = `${actor.id}Div`;
+
     actorDiv.innerHTML = `
         <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="${actor.title
-      } poster">
-        <h3>${actor.name}</h3>`;
+      } poster" class="actor-img" style="width:100%">
+        <h3 id="actor-name">${actor.name}</h3>`;
     actorDiv.addEventListener("click", () => {
       actorDetails(actor);
     });
 
+    actorDiv.addEventListener("mouseover", () => {
+      // movieOnhover(actor);
+      actorDiv.style.backgroundColor = "rgb(28, 70, 123)";
+      actorDiv.style.scale = 1.1;
+    });
+
+    actorDiv.addEventListener("mouseleave", () => {
+      // movieOnleave(actor);
+      actorDiv.style.backgroundColor = "rgba(254, 254, 254, 0.5)";
+      actorDiv.style.scale = 1;
+    });
+
     CONTAINER.appendChild(actorDiv);
+
+    actorDiv.classList.add("actor-div", "flashing");
   });
+
+  CONTAINER.classList.add("actors");
+
 };
+
+// const actorOnhover = (actor) => {
+//   const rating = document.getElementById(actor.id);
+//   rating.style.visibility = "visible";
+// }
+
+// const actorOnleave = (actor) => {
+//   const rating = document.getElementById(actor.id);
+//   rating.style.visibility = "hidden";
+// }
 
 const runActors = async () => {
   const actors = await fetchActors();
@@ -366,6 +397,8 @@ const fetchActorCredits = async (actorId) => {
 };
 
 const renderActor = (actor, actorCredits) => {
+  CONTAINER.classList.remove("movies", "actor-div");
+  CONTAINER.classList.remove("movies");
   CONTAINER.innerHTML = `
   <div class="row " id="single-actor-page">
   <div class="col-lg-4 col-md-12 col-sm-12">
@@ -391,7 +424,7 @@ const renderActor = (actor, actorCredits) => {
 </div>`;
 
   const gender = document.getElementById("gender");
-  if(gender.innerText === "1") {
+  if (gender.innerText === "1") {
     gender.textContent = "Female";
   }
   else if (gender.innerText === "2") {

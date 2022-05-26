@@ -1,6 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Tiro+Telugu&display=swap");
 body {
-  background-color: rgb(163, 163, 163);
+  /* background-color: rgb(163, 163, 163); */
+  background-image: linear-gradient(
+    to left bottom,
+    #7a7a7a,
+    #838383,
+    #8c8c8c,
+    #969696,
+    #9f9f9f,
+    #a7a7a7,
+    #b0b0b0,
+    #b8b8b8,
+    #c1c1c1,
+    #cacaca,
+    #d3d3d3,
+    #dcdcdc
+  );
 }
 #movie-backdrop {
   width: 100%;
@@ -22,6 +37,7 @@ body {
   width: 15%;
   max-width: 100%;
   height: auto;
+  cursor: pointer;
 }
 
 nav {
@@ -56,7 +72,7 @@ nav {
   color: aliceblue;
   text-decoration: none;
   bottom: 0;
-  top: 100%;
+  /* top: 100%; */
   width: 100%;
 }
 
@@ -73,7 +89,28 @@ nav {
   row-gap: 1rem;
 }
 
+.actors {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 3%;
+  row-gap: 1rem;
+}
+
 .movie-div {
+  text-align: center;
+  position: relative;
+  border-radius: 5%;
+  margin-bottom: 0.8rem;
+  height: auto;
+  background-color: rgba(254, 254, 254, 0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  font-family: "Inconsolata", monospace;
+  cursor: pointer;
+}
+
+.actor-div {
   text-align: center;
   position: relative;
   border-radius: 5%;
@@ -94,7 +131,26 @@ nav {
   max-width: 100%;
 }
 
+.actor-img {
+  position: relative;
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
+  max-width: 100%;
+}
+
 #movie-title {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  justify-content: center;
+  padding: 2%;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  font-family: "Inconsolata", monospace;
+}
+
+#actor-name {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
@@ -128,3 +184,33 @@ nav {
   transition: 0.3s;
   font-family: "Inconsolata", monospace;
 }
+
+/* Flashing */
+.flashing:hover {
+  opacity: 1;
+  -webkit-animation: flash 1.5s;
+  animation: flash 1.5s;
+}
+@-webkit-keyframes flash {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes flash {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* .scrollbar { */
+  /* max-height: 40%;
+  overflow: hidden;
+  overflow-y: scroll; */
+  /* display: inline-block; */
+/* } */
