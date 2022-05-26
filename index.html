@@ -17,7 +17,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: sticky; top: 0; z-index: 1">
+  <nav class="navbar navbar-expand-lg " style="position: sticky; top: 0; z-index: 1" id="nav-bar">
 
     <img src="./images/fakeflex-logo.png" alt="Fakeflex logo" id="fakeflex-logo" onclick="autorun()">
 
@@ -30,11 +30,11 @@
 
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#" onclick="runActors()">Actors</a>
+          <a class="nav-link text-color on-hover" href="#" onclick="runActors()">Actors</a>
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          <a class="nav-link dropdown-toggle text-color on-hover" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Genres
           </a>
@@ -43,7 +43,7 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          <a class="nav-link dropdown-toggle text-color on-hover" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Filter
           </a>
@@ -58,18 +58,27 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#" onclick="renderAbout()">About</a>
+          <a class="nav-link text-color on-hover" href="#" onclick="renderAbout()">About</a>
         </li>
       </ul>
 
      <form id="searchForm" class="form-inline my-2 my-lg-0">
                 <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button id="searchBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button id="searchBtn" class="btn btn-outline-success my-2 my-sm-0 text-color" type="submit">Search</button>
               </form>
     </div>
   </nav>
   <div class="container">
   </div>
+  <footer class ="footer">
+    <div>
+      <p>This was created by</p>
+      <a href="https://github.com/ghufran-adel
+      " class="text-color on-hover">Ghufran</a>
+      <p style="display: inline-block;">&</p>
+      <a href="https://github.com/NouhRastanawi" class="text-color on-hover">Nouh Rastanawi</a>
+    </div>
+  </footer>
   <script type="text/javascript" src="script.js"></script>
 </body>
 

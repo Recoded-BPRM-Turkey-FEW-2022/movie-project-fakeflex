@@ -92,17 +92,24 @@ const renderMovies = (movies) => {
   CONTAINER.innerHTML = "";
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
+    
 
     movieDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
-      } poster">
-        <h3>${movie.title}</h3>`;
+      } poster" id="movie-img">
+        <h3 id="movie-title">${movie.title}</h3>`;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
     CONTAINER.appendChild(movieDiv);
+    movieDiv.classList.add("movie-div");
   });
+  CONTAINER.classList.add("movies");
 };
+
+const movieOnhover = (movie) => {
+  
+}
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie, credits, similars, video) => {
@@ -290,6 +297,7 @@ const renderActors = (actors) => {
     actorDiv.addEventListener("click", () => {
       actorDetails(actor);
     });
+
     CONTAINER.appendChild(actorDiv);
   });
 };
