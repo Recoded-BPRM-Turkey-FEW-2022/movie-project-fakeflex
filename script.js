@@ -105,7 +105,7 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie, credits, similars, Video) => {
+const renderMovie = (movie, credits, similars, video) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
