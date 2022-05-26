@@ -1,11 +1,35 @@
 #movie-backdrop {
-    width: 100%;
+  width: 100%;
 }
 
 .container {
-    padding-top: 32px;
+  padding-top: 32px;
 }
 
 #actors {
-    margin: 24px 16px 0 0;
+  margin: 24px 16px 0 0;
+}
+
+#fakeflex-logo {
+  padding: 12px;
+  width: 15%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* .sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+} */
+
+nav{
+  display: flex;
+  background-color: rgb(39, 36, 36);
+  position: sticky;
+  top: 0;
 }
