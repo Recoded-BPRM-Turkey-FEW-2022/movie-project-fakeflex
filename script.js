@@ -92,23 +92,49 @@ const renderMovies = (movies) => {
   CONTAINER.innerHTML = "";
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
-    
 
     movieDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
       } poster" id="movie-img">
+        <p id="rating" class="centered">${movie.vote_average}</p>
         <h3 id="movie-title">${movie.title}</h3>`;
+     
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
+
+    movieDiv.addEventListener("mouseover", () => {
+      movieOnhover(movie);
+    });
+
+    movieDiv.addEventListener("mouseleave", () => {
+      movieOnleave(movie);
+    });
+
     CONTAINER.appendChild(movieDiv);
+    
     movieDiv.classList.add("movie-div");
+    // const rating = document.getElementById("rating");
+    const rating = document.querySelectorAll(".centered");
+    // rating.style.visibility = "hidden";
   });
   CONTAINER.classList.add("movies");
 };
 
 const movieOnhover = (movie) => {
-  
+  const rating = document.getElementById("rating");
+  rating.style.visibility = "visible";
+  // const myTimeout = setTimeout(movieOnleave, 0);
+  // rating.style.display = "block";
+}
+
+const movieOnleave = (movie) => {
+  const rating = document.getElementById("rating");
+  rating.style.visibility = "hidden";
+  // rating.style.display="none";
+}
+
+const movieMouseLeft = (movie) => {
 }
 
 // You'll need to play with this function in order to add features and enhance the style.

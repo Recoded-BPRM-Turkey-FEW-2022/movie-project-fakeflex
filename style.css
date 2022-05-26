@@ -74,6 +74,7 @@ nav{
 }
 
 .movie-div {
+  position: relative;
   border-radius: 5%;
   margin-bottom: 0.8rem;
   height: auto;
@@ -85,6 +86,7 @@ nav{
 }
 
 #movie-img {
+  position: relative;
   border-top-left-radius: 5%;
   border-top-right-radius: 5%;
   width: 100%;
@@ -97,5 +99,21 @@ nav{
   font-size: x-large;
   font-weight: bold;
   font-family: 'Inconsolata', monospace;
+}
+/* 
+#rating {
+  display: inline-block;
+  position: absolute;
+  left: 10%;
+  text-align: center;
+  justify-self: center;
+} */
 
+.centered {
+  font-size: x-large;
+  color: aliceblue;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
