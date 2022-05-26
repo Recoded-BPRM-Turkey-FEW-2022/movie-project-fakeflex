@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Tiro+Telugu&display=swap');
+body {
+  background-color: rgb(163, 163, 163);
+}
 #movie-backdrop {
   width: 100%;
 }
 
 .container {
   padding-top: 32px;
+  height: 100%;
+  padding-left: 10rem;
+  padding-right: 10rem;
 }
 
 #actors {
@@ -17,19 +24,78 @@
   height: auto;
 }
 
-/* .sticky {
-  position: fixed;
+nav{
+  display: flex;
+  position: sticky;
   top: 0;
+  background-color: rgb(28, 70, 123);
+  border: solid rgb(55, 55, 55) 2px;
+  font-size: large;
+}
+
+.text-color {
+  color:aliceblue;
+}
+
+#searchBtn {
+  color: aliceblue;
+  border: solid 1px aliceblue;
+}
+
+#searchBtn:hover {
+  background-color: rgb(163, 163, 163);
+  color: rgb(28, 70, 123);
+}
+
+.footer {
+  background-color: rgb(28, 70, 123);
+  border: solid rgb(55, 55, 55) 2px;
+  font-size: large;
+  padding: 0.4%;
+  text-align: center;
+  color: aliceblue;
+  text-decoration: none;
+  bottom:0;
+  top:100%;
   width: 100%;
 }
 
-.sticky + .content {
-  padding-top: 60px;
-} */
+.on-hover:hover {
+  font-size: larger;
+  color: aliceblue;
+}
 
-nav{
-  display: flex;
-  background-color: rgb(39, 36, 36);
-  position: sticky;
-  top: 0;
+.movies {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 3%;
+  row-gap: 1rem;
+}
+
+.movie-div {
+  border-radius: 5%;
+  margin-bottom: 0.8rem;
+  height: auto;
+  /* border: solid 1px aliceblue; */
+  background-color: rgba(254, 254, 254, 0.5);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+
+}
+
+#movie-img {
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
+  width: 100%;
+  max-width: 100%;
+}
+
+#movie-title {
+  padding: 2%;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  font-family: 'Inconsolata', monospace;
+
 }
