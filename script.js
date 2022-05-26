@@ -179,3 +179,41 @@ const fetchRelatedMovies = async (moiveID) => {
   return relatedMoveis.results;
 };
 
+//fetch the data which will be used in search function & creating new url because query is needed
+const searchConstructUrl = (path,searchValue) => {
+  return `${TMDB_BASE_URL}/${path}?api_key=${atob(
+    "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
+  )}&query=${searchValue}`;
+};
+const fetchSearch = async (searchInfo) => {
+  const url = searchConstructUrl(`search/multi`,`${searchInfo}`)
+  console.log(url);
+  const res = await fetch(url);
+  const FindData = await res.json();
+  return FindData.results;
+
+};
+
+//render the search results 
+const renderSearch = async (result) => {
+  const resultData = await fetchSearch(result);
+   for(let i=0 ;  i<resultData.length ; i++){
+    if(resultData[i].media_type==="movie"){
+      CONTAINER.innerHTML = ""
+      return renderMovies(resultData);
+    }
+    else if(resultData.results[i].media_type==="person"){
+      CONTAINER.innerHTML = ""
+    return renderActors(resultData);
+    };
+    
+  };
+}
+//adding EventListener to the search button in the nav bar 
+const searchBtn= document.getElementById("searchBtn");
+const searchInput= document.getElementById("searchInput");
+searchBtn.addEventListener("click",async (e)=>{
+  e.preventDefault();
+  const inputValue = searchInput.value;
+  return renderSearch(inputValue);
+});
