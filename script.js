@@ -116,7 +116,6 @@ const renderMovie = (movie,credits,similars,vedio) => {
 
       companyName.innerHTML=`${movie.production_companies[i].name}`
       companyPhoto.src= BACKDROP_BASE_URL+ movie.production_companies[i].logo_path;
-      console.log(BACKDROP_BASE_URL+ movie.production_companies[i].logo_path)
       companies.append(company);
       company.append(companyName);
       company.append(companyPhoto);
@@ -179,8 +178,4 @@ const fetchRelatedMovies = async (moiveID) => {
   const relatedMoveis = await res.json();
   return relatedMoveis.results;
 };
-
-
-
-
 
