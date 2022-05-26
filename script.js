@@ -92,11 +92,12 @@ const renderMovies = (movies) => {
   CONTAINER.innerHTML = "";
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
+    movieDiv.id = `${movie.id}Div`;
 
     movieDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
       } poster" id="movie-img">
-        <p id="rating" class="centered">${movie.vote_average}</p>
+        <p id="${movie.id}" class="centered">Rating: ${movie.vote_average}/10</p>
         <h3 id="movie-title">${movie.title}</h3>`;
      
     movieDiv.addEventListener("click", () => {
@@ -105,33 +106,44 @@ const renderMovies = (movies) => {
 
     movieDiv.addEventListener("mouseover", () => {
       movieOnhover(movie);
+      movieDiv.style.backgroundColor = "rgb(28, 70, 123)";
+      movieDiv.style.scale = 1.1;
     });
 
     movieDiv.addEventListener("mouseleave", () => {
       movieOnleave(movie);
+      movieDiv.style.scale = 1;
+      
+      movieDiv.style.backgroundColor = "rgba(254, 254, 254, 0.5)";
     });
 
     CONTAINER.appendChild(movieDiv);
     
     movieDiv.classList.add("movie-div");
-    // const rating = document.getElementById("rating");
-    const rating = document.querySelectorAll(".centered");
-    // rating.style.visibility = "hidden";
+    const rating = document.getElementById(movie.id);
+    rating.style.visibility = "hidden";
   });
   CONTAINER.classList.add("movies");
 };
 
+// const classToggle = (movie) => {
+//   const moiveDiv = document.getElementById(`${movie.id}Div`);
+//   moiveDiv.classList.toggle("movie-hover")
+// }
+
+function myFunction() {
+  var element = document.getElementById("myDIV");
+  element.classList.toggle("mystyle");
+} 
+
 const movieOnhover = (movie) => {
-  const rating = document.getElementById("rating");
+  const rating = document.getElementById(movie.id);
   rating.style.visibility = "visible";
-  // const myTimeout = setTimeout(movieOnleave, 0);
-  // rating.style.display = "block";
 }
 
 const movieOnleave = (movie) => {
-  const rating = document.getElementById("rating");
+  const rating = document.getElementById(movie.id);
   rating.style.visibility = "hidden";
-  // rating.style.display="none";
 }
 
 const movieMouseLeft = (movie) => {
