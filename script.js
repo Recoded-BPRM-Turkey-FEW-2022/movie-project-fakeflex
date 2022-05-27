@@ -151,13 +151,12 @@ const movieOnleave = (movie) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie, credits, similars, video) => {
-  // CONTAINER.className = "container";
   CONTAINER.className = "single-movie-page";
-  // CONTAINER.classList.remove("movies", "actor-div");
+
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
-             <img id="movie-backdrop" src=${PROFILE_BASE_URL + movie.backdrop_path
+             <img id="movie-backdrop" class="movie-backdrop" src=${PROFILE_BASE_URL + movie.backdrop_path
     } class="movie-backdrop">
         </div>
         <div class="col-md-8" id="movie-details">
