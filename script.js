@@ -199,7 +199,18 @@ const renderMovie = (movie, credits, similars, video) => {
     const actorLi = document.createElement('li');
     actorLi.addEventListener("click", () => {
       actorDetails(credits.cast[i]);
-    })
+    });
+
+    actorLi.addEventListener("mouseover", () => {
+      actorH3.style.color = "aliceblue";
+      actorLi.style.scale = 1.05;
+    });
+
+    actorLi.addEventListener("mouseleave", () => {
+      actorH3.style.color = "#423a3a";
+      actorLi.style.scale = 1;
+    });
+
     const actorphoto = document.createElement('img');
     const actorH3 = document.createElement('h4');
     actorH3.innerHTML = `${credits.cast[i].name}`;
@@ -212,7 +223,7 @@ const renderMovie = (movie, credits, similars, video) => {
     actorLi.append(actorphoto);
     actorLi.append(actorH3);
 
-    actorLi.classList.add("listActorMovie");
+    actorLi.classList.add("listActorMovie", "flashing");
     actorphoto.classList.add("listActorImg");
     actorH3.classList.add("listActorImgName");
   };
@@ -241,15 +252,29 @@ const renderMovie = (movie, credits, similars, video) => {
     const relatedMo = document.createElement('li');
     relatedMo.addEventListener("click", () => {
       movieDetails(similars[i]);
-    })
+    });
+
+    relatedMo.addEventListener("mouseover", () => {
+      MovieName.style.color = "aliceblue";
+      relatedMo.style.scale = 1.05;
+    });
+
+
+    relatedMo.addEventListener("mouseleave", () => {
+      MovieName.style.color = "#423a3a";
+      relatedMo.style.scale = 1;
+    });
+
     const MovieName = document.createElement('h4');
     const MoviePhoto = document.createElement('img');
     MovieName.innerHTML = `${similars[i].title}`;
     MoviePhoto.src = BACKDROP_BASE_URL + similars[i].backdrop_path;
+
     Related.append(relatedMo);
     relatedMo.append(MoviePhoto);
     relatedMo.append(MovieName);
-    relatedMo.classList.add("listActorMovie");
+
+    relatedMo.classList.add("listActorMovie", "flashing");
     MoviePhoto.classList.add("listActorImg");
     MovieName.classList.add("listActorImgName");
   };
@@ -372,7 +397,7 @@ const renderActors = (actors) => {
       // movieOnhover(actor);
       actorDiv.style.backgroundColor = "rgb(28, 70, 123)";
       actorDiv.style.color = "aliceblue";
-      actorDiv.style.scale = 1.1;
+      actorDiv.style.scale = 1.05;
     });
 
     actorDiv.addEventListener("mouseleave", () => {
@@ -431,7 +456,7 @@ const renderActor = (actor, actorCredits) => {
   CONTAINER.innerHTML = `
   <div class="row " id="single-actor-page">
   <div col-lg-4 col-md-12 col-sm-12">
-    <img id="actor-backdrop "class="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}> 
+    <img id="actor-backdrop" class="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}> 
   </div>
   <div style="margin:1.5rem;" class="actor-info col-lg-8 col-md-12 col-sm-12">
     <h2 id="actor-name" class="actorName">${actor.name}</h2>
@@ -477,6 +502,17 @@ const renderActor = (actor, actorCredits) => {
     movieli.addEventListener("click", () => {
       movieDetails(actorCredits.cast[i]);
     });
+
+    movieli.addEventListener("mouseover", () => {
+      movieName.style.color = "aliceblue";
+      movieli.style.scale = 1.05;
+    });
+
+    movieli.addEventListener("mouseleave", () => {
+      movieName.style.color = "#423a3a";
+      movieli.style.scale = 1;
+    });
+
     const movieImage = document.createElement("img");
     movieImage.src = `${BACKDROP_BASE_URL + actorCredits.cast[i].poster_path}`;
     movieImage.onerror = () => {
@@ -489,7 +525,7 @@ const renderActor = (actor, actorCredits) => {
     relatedMovies.append(movieli);
     movieli.append(movieImage);
     movieli.append(movieName);
-    movieli.classList.add("listActorMovie");
+    movieli.classList.add("listActorMovie", "flashing");
     movieImage.classList.add("listActorImg");
     movieName.classList.add("listActorImgName");
   }

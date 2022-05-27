@@ -302,7 +302,9 @@ nav {
 .listActorImg {
   width: 12rem;
   height: 17rem;
-  padding-top: 0.5rem;
+  padding-top: 0.8rem;
+  width: 100%;
+  /* border-radius: 3%; */
 }
 
 .company-logo {
