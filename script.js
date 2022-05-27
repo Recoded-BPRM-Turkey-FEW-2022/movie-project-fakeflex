@@ -89,8 +89,9 @@ const fetchMovie = async (movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
-  CONTAINER.classList.remove("actors");
+  CONTAINER.className = "container";
   CONTAINER.innerHTML = "";
+
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.id = `${movie.id}Div`;
@@ -108,12 +109,14 @@ const renderMovies = (movies) => {
     movieDiv.addEventListener("mouseover", () => {
       movieOnhover(movie);
       movieDiv.style.backgroundColor = "rgb(28, 70, 123)";
+      movieDiv.style.color = "aliceblue";
       movieDiv.style.scale = 1.1;
     });
 
     movieDiv.addEventListener("mouseleave", () => {
       movieOnleave(movie);
       movieDiv.style.backgroundColor = "rgba(254, 254, 254, 0.5)";
+      movieDiv.style.color = "#423a3a";
       movieDiv.style.scale = 1;
     });
 
@@ -198,7 +201,7 @@ const renderMovie = (movie, credits, similars, video) => {
     actorphoto.onerror = () => {
       placeholderImage("actor", actorphoto);
     }
-    
+
     actors.append(actorLi);
     actorLi.append(actorphoto);
     actorLi.append(actorH3);
@@ -329,8 +332,9 @@ const fetchActors = async () => {
 
 // This function is to render actors
 const renderActors = (actors) => {
-  CONTAINER.className="";
+  CONTAINER.className = "";
   CONTAINER.classList.add("container");
+
   CONTAINER.innerHTML = "";
 
   actors.map((actor) => {
@@ -348,14 +352,14 @@ const renderActors = (actors) => {
     actorDiv.addEventListener("mouseover", () => {
       // movieOnhover(actor);
       actorDiv.style.backgroundColor = "rgb(28, 70, 123)";
-      actorDiv.style.color="aliceblue"
+      actorDiv.style.color = "aliceblue";
       actorDiv.style.scale = 1.1;
     });
 
     actorDiv.addEventListener("mouseleave", () => {
       // movieOnleave(actor);
       actorDiv.style.backgroundColor = "rgba(254, 254, 254, 0.5)";
-      actorDiv.style.color="#423a3a"
+      actorDiv.style.color = "#423a3a";
       actorDiv.style.scale = 1;
     });
 
@@ -403,8 +407,8 @@ const fetchActorCredits = async (actorId) => {
   return Cast
 };
 
-const renderActor = (actor, actorCredits) => { 
-  CONTAINER.className="";
+const renderActor = (actor, actorCredits) => {
+  CONTAINER.className = "";
   // CONTAINER.classList.remove("movies", "actor-div");
   // CONTAINER.classList.remove("movies");
   // CONTAINER.classList.remove("container");
@@ -477,10 +481,10 @@ const renderActor = (actor, actorCredits) => {
 };
 
 const placeholderImage = (type, image) => {
-  if(type === "actor") {
+  if (type === "actor") {
     image.src = "./images/actor-placehoder.jpg";
   }
-  else if (type === "movie"){
+  else if (type === "movie") {
     image.src = "https://thumbs.dreamstime.com/b/unknown-concept-word-blackboard-background-written-140315057.jpg";
   }
 }

@@ -169,7 +169,10 @@ nav {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  text-shadow: 0 0 3px rgb(0, 0, 0);
+  /* text-shadow: 0 0 11px rgb(11, 109, 255); */
+  text-shadow: 0 0 3px #066cfb;
+  text-decoration: underline;
+  /* background-color: rgba(28, 70, 123, 0.5); */
 }
 
 .movie-hover {
