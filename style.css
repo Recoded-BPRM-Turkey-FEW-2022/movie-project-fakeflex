@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Tiro+Telugu&display=swap");
-body {
+body {width:100%;
   /* background-color: rgb(163, 163, 163); */
   background-image: linear-gradient(
     to left bottom,
@@ -150,7 +150,7 @@ nav {
   font-family: "Inconsolata", monospace;
 }
 
-#actor-name {
+.actors-name {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
@@ -214,3 +214,73 @@ nav {
   overflow-y: scroll; */
   /* display: inline-block; */
 /* } */
+
+.actor-backdrop{
+/* width:100%; */
+width:18rem;
+  height:25rem;
+box-shadow: 5px 5px 20px;
+}
+.actorName{
+  font-size:xx-large;
+  color: #423a3a;
+  font-weight:bold;
+  padding:0;
+  margin-bottom:1rem;
+}
+.actor-info{
+  color: rgb(28, 70, 123);
+  font-size:larger;
+  font-weight:bold;
+  font-family: "Inconsolata", monospace;
+ 
+}
+
+.actor-info-detl{
+  color:aliceblue;
+  font-size:large;
+  font-weight:normal;
+  font-family: "Inconsolata", monospace;
+}
+
+#single-actor-page {
+  width:100%;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+
+ .hello{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 3%;
+  row-gap: 1rem;
+} 
+.listActorImg{
+  width:12rem;
+  height:17rem;
+}
+.RelatedName{
+  width:100%;
+  font-size:xx-large;
+  color: #423a3a;
+  padding:0;
+  font-weight:bold;
+  margin-bottom:1rem;
+  font-family: "Inconsolata", monospace;
+}
+.listActorImgName{
+  font-size:x-large;
+  color:#423a3a ;
+  padding:1rem;
+  font-weight:bold;
+  margin-bottom:1rem;
+  font-family: "Inconsolata", monospace;
+}
+.listActorMovie{
+border:1px solid aliceblue;
+box-shadow: 5px 5px 20px;
+text-align:center;
+  
+}

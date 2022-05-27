@@ -329,7 +329,8 @@ const fetchActors = async () => {
 
 // This function is to render actors
 const renderActors = (actors) => {
-  CONTAINER.classList.remove("movies");
+  CONTAINER.className="";
+  CONTAINER.classList.add("container");
   CONTAINER.innerHTML = "";
 
   actors.map((actor) => {
@@ -339,7 +340,7 @@ const renderActors = (actors) => {
     actorDiv.innerHTML = `
         <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="${actor.title
       } poster" class="actor-img" onerror="this.src='./images/actor-placehoder.jpg';" style="width:100%">
-        <h3 id="actor-name">${actor.name}</h3>`;
+        <h3 id="actor-name" class="actors-name">${actor.name}</h3>`;
     actorDiv.addEventListener("click", () => {
       actorDetails(actor);
     });
@@ -347,12 +348,14 @@ const renderActors = (actors) => {
     actorDiv.addEventListener("mouseover", () => {
       // movieOnhover(actor);
       actorDiv.style.backgroundColor = "rgb(28, 70, 123)";
+      actorDiv.style.color="aliceblue"
       actorDiv.style.scale = 1.1;
     });
 
     actorDiv.addEventListener("mouseleave", () => {
       // movieOnleave(actor);
       actorDiv.style.backgroundColor = "rgba(254, 254, 254, 0.5)";
+      actorDiv.style.color="#423a3a"
       actorDiv.style.scale = 1;
     });
 
@@ -401,27 +404,30 @@ const fetchActorCredits = async (actorId) => {
 };
 
 const renderActor = (actor, actorCredits) => { 
-  CONTAINER.classList.remove("movies", "actor-div");
-  CONTAINER.classList.remove("movies");
+  CONTAINER.className="";
+  // CONTAINER.classList.remove("movies", "actor-div");
+  // CONTAINER.classList.remove("movies");
+  // CONTAINER.classList.remove("container");
+  // CONTAINER.classList.remove("actors");
   CONTAINER.innerHTML = `
   <div class="row " id="single-actor-page">
-  <div class="col-lg-4 col-md-12 col-sm-12">
-    <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}> 
+  <div col-lg-4 col-md-12 col-sm-12">
+    <img id="actor-backdrop "class="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}> 
   </div>
-  <div class="col-lg-8 col-md-12 col-sm-12">
-    <h2 id="actor-name"><span>${actor.name}</span></h2>
-    <h4>Gender:</h4>
-    <p id="gender">${actor.gender}</p>
-    <h4>Popularity:</h4>
-    <p id="popularity">${actor.popularity}</p>
-    <h4>Birthday:</h4>
-    <p id="birthday">${actor.birthday}</p>
-    <h4>Biography:</h4>
-     <p id="biography" style="color:#BDBDBD; font-size: .8rem;">${actor.biography}</p>
+  <div style="margin:1.5rem;" class="actor-info col-lg-8 col-md-12 col-sm-12">
+    <h2 id="actor-name" class="actorName">${actor.name}</h2>
+    <h4 class="actor-info">Gender</h4>
+    <p id="gender" class="actor-info-detl">${actor.gender}</p>
+    <h4 class="actor-info">Popularity</h4>
+    <p id="popularity" class="actor-info-detl">${actor.popularity}</p>
+    <h4 class="actor-info">Birthday</h4>
+    <p id="birthday" class="actor-info-detl">${actor.birthday}</p>
+    <h4 class="actor-info">Biography</h4>
+     <p id="biography" style="color:aliceblue; font-size: 1rem; font-weight:normal;">${actor.biography}</p>
   </div>
-  <div class="container" >
-    <h4 class="row" style="padding:1rem;" > Related Movies:</h4>
-    <ul id="relatedMovies">
+  <div style="width:100%;" >
+    <h4 class="row RelatedName" style="padding:1rem;" ><span> Related Movies</span></h4>
+    <ul id="relatedMovies" class=" list-unstyled hello">
 
     </ul>
   </div>
@@ -464,6 +470,9 @@ const renderActor = (actor, actorCredits) => {
     relatedMovies.append(movieli);
     movieli.append(movieImage);
     movieli.append(movieName);
+    movieli.classList.add("listActorMovie");
+    movieImage.classList.add("listActorImg");
+    movieName.classList.add("listActorImgName");
   }
 };
 
