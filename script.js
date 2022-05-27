@@ -274,9 +274,6 @@ const renderMovie = (movie, credits, similars, video) => {
       director.innerHTML = `
       Director: <span class="actor-info-detl">${directorName} </span>`;
     };
-    
-    
-
   };
 };
 
@@ -604,9 +601,13 @@ const renderGenresList = (genresArraylist) => {
 renderGenresList(genresArraylist);
 
 const renderAbout = () => {
+  CONTAINER.className = "";
   CONTAINER.innerHTML = `
-  <div>
-    <p>This is the about section</p> 
+  <div class="flex-column">
+    <img src="./images/fakeflex-logo-full.png" alt="Fakeflex logo" class="about-logo">
+    <p class="about">Fakeflex is a website that uses TMDB database.<br> 
+    You can get info about any movie that exits.<br>
+    Enjoy!</p>
   </div>`
 }
 
