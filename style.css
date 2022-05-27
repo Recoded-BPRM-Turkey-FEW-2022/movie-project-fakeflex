@@ -171,8 +171,6 @@ nav {
   left: 50%;
   transform: translate(-50%, -50%);
   text-shadow: 0 0 3px #066cfb;
-  /* background-color: rgba(254, 254, 254, 0.5); */
-  /* text-decoration: underline; */
 }
 
 .movie-hover {
@@ -373,7 +371,7 @@ iframe {
   animation: glow 1s ease-in-out infinite alternate;
 }
 
-@-webkit-keyframes glow {
+@keyframes glow {
   from {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00a5e6, 0 0 40px #006fe6, 0 0 50px #004de6, 0 0 60px #003de6, 0 0 70px #0008e6;
   }
@@ -387,4 +385,24 @@ iframe {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+.about-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+  padding-bottom: 2.5rem;
+}
+
+.about {
+  font-size: larger;
+  text-align: center;
+  font-family: "Inconsolata", monospace;
 }
