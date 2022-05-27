@@ -99,7 +99,7 @@ const renderMovies = (movies) => {
     movieDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
       } poster" id="movie-img" onerror="this.src='https://thumbs.dreamstime.com/b/unknown-concept-word-blackboard-background-written-140315057.jpg';">
-        <p id="${movie.id}" class="centered">Rating: ${movie.vote_average}/10</p>
+        <p id="${movie.id}" class="centered glow">Rating ${movie.vote_average}/10</p>
         <h3 id="movie-title">${movie.title}</h3>`;
 
     movieDiv.addEventListener("click", () => {
@@ -151,39 +151,45 @@ const movieOnleave = (movie) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie, credits, similars, video) => {
-  CONTAINER.classList.remove("movies", "actor-div");
+  // CONTAINER.className = "container";
+  CONTAINER.className = "single-movie-page";
+  // CONTAINER.classList.remove("movies", "actor-div");
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
              <img id="movie-backdrop" src=${PROFILE_BASE_URL + movie.backdrop_path
-    }>
+    } class="movie-backdrop">
         </div>
-        <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${movie.release_date
-    }</p>
-            <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <h3>Overview:</h3>
-            <p id="movie-overview">${movie.overview}</p>
-            <p id="vote_average"> <b>Vote Average:</b> ${movie.vote_average}    
-             <b>Vote Count: </b> ${movie.vote_count} </p>
-            <p id="original_language"><b>language:</b> ${movie.spoken_languages[0].name} </p>
-            <p id="director"> </p>
+        <div class="col-md-8" id="movie-details">
+            <h1 id="single-movie-title" class="movie-title">${movie.title}</h1>
+            <h3 id="movie-release-date" class="movie-info">Release Date: <span class="movie-info-detl"> ${movie.release_date}</span></h3>
+            <h3 id="movie-runtime" class="movie-info">Runtime:<span class="movie-info-detl"> ${movie.runtime} Minutes</span></h3>
+            <h3 class="movie-info" style="font-size: x-large">Overview</h3>
+            <p id="movie-overview"><span class="movie-info-detl">${movie.overview}</span></p>
+            <h3 id="vote_average" class="movie-info"> Vote Average:<span class="movie-info-detl"> ${movie.vote_average}</span>    
+             <b>Vote Count: <span class="movie-info-detl"> ${movie.vote_count}</span> </h3>
+            <h3 id="original_language" class="movie-info">Language: <span class="movie-info-detl">${movie.spoken_languages[0].name}</span> </h3>
+            
         </div>
         </div>
         <div id="video">
         
         </div>
           <div>
-            <h3>Actors:</h3>
+            <h3 class="RelatedName">Actors</h3>
 
-            <ul id="actors" class="list-unstyled">
+            <ul id="actors" class="list-unstyled hello">
             </ul>
-            </div>
-            <div id="companies" class="list-unstyled"><h3>production Company:</h3></div>
-            <h3>Related Movies:</h3>
-            <ul id="Related" class="list-unstyled">
-            </ul>
+          </div>
+          <h3 class="RelatedName" style="padding-top: 2rem;">Production Company</h3>
+          <ul id="companies" class="flex-row list-unstyled" style="padding: 1.5rem"></ul>
+          <div style="width:100%;">
+          <div>
+          <h3 class="RelatedName">Related Movies</h3>
+          <ul id="Related" class="list-unstyled hello">
+          </ul>
+          </div>
+        </div>
 
     </div>`;
 
@@ -205,6 +211,10 @@ const renderMovie = (movie, credits, similars, video) => {
     actors.append(actorLi);
     actorLi.append(actorphoto);
     actorLi.append(actorH3);
+
+    actorLi.classList.add("listActorMovie");
+    actorphoto.classList.add("listActorImg");
+    actorH3.classList.add("listActorImgName");
   };
 
 
@@ -218,8 +228,10 @@ const renderMovie = (movie, credits, similars, video) => {
     companyName.innerHTML = `${movie.production_companies[i].name}`
     companyPhoto.src = BACKDROP_BASE_URL + movie.production_companies[i].logo_path;
     companies.append(company);
-    company.append(companyName);
     company.append(companyPhoto);
+    company.append(companyName);
+    companyName.classList.add("company-title");
+    companyPhoto.classList.add("company-logo");
 
   };
 
@@ -237,23 +249,33 @@ const renderMovie = (movie, credits, similars, video) => {
     Related.append(relatedMo);
     relatedMo.append(MoviePhoto);
     relatedMo.append(MovieName);
+    relatedMo.classList.add("listActorMovie");
+    MoviePhoto.classList.add("listActorImg");
+    MovieName.classList.add("listActorImgName");
   };
 
   //to get the trailer(VIDEO)
   for (let i = 0; i < video.length; i++) {
     const videoT = document.getElementById('video');
-    videoT.innerHTML = `<iframe src=https://www.youtube.com/embed/${video[i].key} width="400" height="240" autoplay>
+    videoT.innerHTML = `<iframe src=https://www.youtube.com/embed/${video[i].key} width="600" height="440" autoplay>
     </video>
     <h3>Trailer</h3>`;
   };
 
-  //to get the director name 
+  //to get the director name
+  const details = document.getElementById("movie-details");
   for (let i = 0; i < credits.crew.length; i++) {
+
     if (credits.crew[i].job === 'Director') {
       const directorName = `${credits.crew[i].name}`;
-      const director = document.getElementById('director');
-      director.innerHTML = `<b>Director</b>: ${directorName}`;
+      const director = document.createElement('h3');
+      details.append(director);
+      director.classList.add("movie-info");
+      director.innerHTML = `
+      Director: <span class="actor-info-detl">${directorName} </span>`;
     };
+    
+    
 
   };
 };
@@ -409,10 +431,6 @@ const fetchActorCredits = async (actorId) => {
 
 const renderActor = (actor, actorCredits) => {
   CONTAINER.className = "";
-  // CONTAINER.classList.remove("movies", "actor-div");
-  // CONTAINER.classList.remove("movies");
-  // CONTAINER.classList.remove("container");
-  // CONTAINER.classList.remove("actors");
   CONTAINER.innerHTML = `
   <div class="row " id="single-actor-page">
   <div col-lg-4 col-md-12 col-sm-12">
@@ -429,8 +447,8 @@ const renderActor = (actor, actorCredits) => {
     <h4 class="actor-info">Biography</h4>
      <p id="biography" style="color:aliceblue; font-size: 1rem; font-weight:normal;">${actor.biography}</p>
   </div>
-  <div style="width:100%;" >
-    <h4 class="row RelatedName" style="padding:1rem;" ><span> Related Movies</span></h4>
+  <div style="width:100%;">
+    <h4 class="row RelatedName"><span> Related Movies</span></h4>
     <ul id="relatedMovies" class=" list-unstyled hello">
 
     </ul>

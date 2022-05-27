@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Tiro+Telugu&display=swap");
-body {width:100%;
+body {
+  width: 100%;
   /* background-color: rgb(163, 163, 163); */
   background-image: linear-gradient(
     to left bottom,
@@ -163,16 +164,15 @@ nav {
 }
 
 .centered {
-  font-size: x-large;
+  font-size: xx-large;
   color: aliceblue;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* text-shadow: 0 0 11px rgb(11, 109, 255); */
   text-shadow: 0 0 3px #066cfb;
-  text-decoration: underline;
-  /* background-color: rgba(28, 70, 123, 0.5); */
+  /* background-color: rgba(254, 254, 254, 0.5); */
+  /* text-decoration: underline; */
 }
 
 .movie-hover {
@@ -212,78 +212,179 @@ nav {
 }
 
 /* .scrollbar { */
-  /* max-height: 40%;
+/* max-height: 40%;
   overflow: hidden;
   overflow-y: scroll; */
-  /* display: inline-block; */
+/* display: inline-block; */
 /* } */
 
-.actor-backdrop{
-/* width:100%; */
-width:18rem;
-  height:25rem;
-box-shadow: 5px 5px 20px;
-}
-.actorName{
-  font-size:xx-large;
-  color: #423a3a;
-  font-weight:bold;
-  padding:0;
-  margin-bottom:1rem;
-}
-.actor-info{
-  color: rgb(28, 70, 123);
-  font-size:larger;
-  font-weight:bold;
-  font-family: "Inconsolata", monospace;
- 
+.actor-backdrop {
+  /* width:100%; */
+  width: 18rem;
+  height: 25rem;
+  box-shadow: 5px 5px 20px;
 }
 
-.actor-info-detl{
-  color:aliceblue;
-  font-size:large;
-  font-weight:normal;
+/* .movie-backdrop {
+  width: 430rem;
+  height: 20rem;
+  box-shadow: 5px 5px 20px;
+} */
+
+
+
+.actorName {
+  font-size: xx-large;
+  color: #423a3a;
+  font-weight: bold;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.movie-title {
+  font-size: xx-large;
+  color: #423a3a;
+  font-weight: bold;
+  padding: 0;
+  margin-bottom: 1rem;
+  font-family: "Inconsolata", monospace;
+}
+
+.actor-info {
+  color: rgb(28, 70, 123);
+  font-size: larger;
+  font-weight: bold;
+  font-family: "Inconsolata", monospace;
+}
+
+.movie-info {
+  color: rgb(28, 70, 123);
+  font-size: larger;
+  font-weight: bold;
+  font-family: "Inconsolata", monospace;
+}
+
+.actor-info-detl {
+  color: aliceblue;
+  font-size: large;
+  font-weight: normal;
+  font-family: "Inconsolata", monospace;
+}
+
+.movie-info-detl {
+  color: aliceblue;
+  font-size: large;
+  font-weight: normal;
   font-family: "Inconsolata", monospace;
 }
 
 #single-actor-page {
-  width:100%;
+  width: 100%;
   padding-top: 32px;
   padding-bottom: 32px;
   padding-left: 10rem;
   padding-right: 10rem;
 }
 
- .hello{
+.single-movie-page {
+  width: 100%;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+
+.hello {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   column-gap: 3%;
   row-gap: 1rem;
-} 
-.listActorImg{
-  width:12rem;
-  height:17rem;
 }
-.RelatedName{
-  width:100%;
-  font-size:xx-large;
+
+.listActorImg {
+  width: 12rem;
+  height: 17rem;
+  padding-top: 0.5rem;
+}
+
+.company-logo {
+  width: 20rem;
+  height: 17rem;
+  padding-top: 0.5rem;
+}
+
+.RelatedName {
+  width: 100%;
+  font-size: xx-large;
   color: #423a3a;
-  padding:0;
-  font-weight:bold;
-  margin-bottom:1rem;
+  padding: 1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
   font-family: "Inconsolata", monospace;
 }
-.listActorImgName{
-  font-size:x-large;
-  color:#423a3a ;
-  padding:1rem;
-  font-weight:bold;
-  margin-bottom:1rem;
+
+.company-title {
+  font-size: x-large;
+  color: #423a3a;
+  text-align: center; 
+  margin-top: 2rem;
+  font-weight: bold;
+  font-family: "Inconsolata", monospace;
+  /* padding-top: 4rem; */
+}
+
+.listActorImgName {
+  font-size: x-large;
+  color: #423a3a;
+  padding: 1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
   font-family: "Inconsolata", monospace;
 }
-.listActorMovie{
-border:1px solid aliceblue;
-box-shadow: 5px 5px 20px;
-text-align:center;
+
+.listActorMovie {
+  /* display: inline-block; */
+  border: 1px solid aliceblue;
+  box-shadow: 5px 5px 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 3%;
+}
+
+iframe {
+  display:block;
+  margin: 0 auto;
+  background-color: #777;
+}
+
+#video {
+  /* width: 100%; */
+  /* margin: 0 !important; */
+  /* padding: 0 !important; */
+  padding-top: 2rem;
+  /* background-color: #2f2f2f; */
+}
+
+
+.glow {
+  /* font-size: 80px; */
+  /* color: #fff; */
+  /* text-align: center; */
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00a5e6, 0 0 40px #006fe6, 0 0 50px #004de6, 0 0 60px #003de6, 0 0 70px #0008e6;
+  }
   
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #dedede, 0 0 40px #b1b1b1, 0 0 50px #9e9e9e, 0 0 60px #767676, 0 0 70px #525252, 0 0 80px #2f2f2f;
+  }
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
