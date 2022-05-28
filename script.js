@@ -159,7 +159,7 @@ const renderMovie = (movie, credits, similars, video) => {
              <img id="movie-backdrop" class="movie-backdrop" src=${PROFILE_BASE_URL + movie.backdrop_path
     } class="movie-backdrop">
         </div>
-        <div class="col-md-8" id="movie-details">
+        <div class="col-md-8" id="movie-details" style="padding-bottom: 2.5rem;">
             <h1 id="single-movie-title" class="movie-title">${movie.title}</h1>
             <h3 id="movie-release-date" class="movie-info">Release Date: <span class="movie-info-detl"> ${movie.release_date}</span></h3>
             <h3 id="movie-runtime" class="movie-info">Runtime:<span class="movie-info-detl"> ${movie.runtime} Minutes</span></h3>
@@ -174,14 +174,14 @@ const renderMovie = (movie, credits, similars, video) => {
         <div id="video">
         
         </div>
-          <div>
+          <div style="padding: 2.5rem;">
             <h3 class="RelatedName">Actors</h3>
 
             <ul id="actors" class="list-unstyled hello">
             </ul>
           </div>
           <h3 class="RelatedName" style="padding-top: 2rem;">Production Company</h3>
-          <ul id="companies" class="flex-row list-unstyled" style="padding: 1.5rem"></ul>
+          <ul id="companies" class="flex-row list-unstyled" style="padding: 1rem"></ul>
           <div style="width:100%;">
           <div>
           <h3 class="RelatedName">Related Movies</h3>
