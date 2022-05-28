@@ -18,9 +18,20 @@ body {
     #dcdcdc
   );
 }
-#movie-backdrop {
+
+.movie-backdrop {
   width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 5px 5px 20px;
+  border: solid 1px #2f2f2f;
+  vertical-align: middle;
 }
+
+/* #movie-backdrop {
+  width: 100%;
+} */
 
 .container {
   padding-top: 32px;
@@ -221,6 +232,7 @@ nav {
   width: 18rem;
   height: 25rem;
   box-shadow: 5px 5px 20px;
+  border: solid 1px #2f2f2f;
 }
 
 /* .movie-backdrop {
@@ -228,8 +240,6 @@ nav {
   height: 20rem;
   box-shadow: 5px 5px 20px;
 } */
-
-
 
 .actorName {
   font-size: xx-large;
@@ -302,7 +312,9 @@ nav {
 .listActorImg {
   width: 12rem;
   height: 17rem;
-  padding-top: 0.5rem;
+  padding-top: 0.8rem;
+  width: 100%;
+  /* border-radius: 3%; */
 }
 
 .company-logo {
@@ -319,12 +331,13 @@ nav {
   font-weight: bold;
   margin-bottom: 1rem;
   font-family: "Inconsolata", monospace;
+  border-top: 2px solid #423a3a;
 }
 
 .company-title {
   font-size: x-large;
   color: #423a3a;
-  text-align: center; 
+  text-align: center;
   margin-top: 2rem;
   font-weight: bold;
   font-family: "Inconsolata", monospace;
@@ -350,19 +363,21 @@ nav {
 }
 
 iframe {
-  display:block;
+  display: block;
   margin: 0 auto;
   background-color: #777;
 }
 
 #video {
+  border-top: 2px solid #423a3a;
   /* width: 100%; */
   /* margin: 0 !important; */
   /* padding: 0 !important; */
   padding-top: 2rem;
+  /* padding-bottom: 1rem; */
+  /* padding-bottom: 2rem; */
   /* background-color: #2f2f2f; */
 }
-
 
 .glow {
   /* font-size: 80px; */
@@ -373,11 +388,13 @@ iframe {
 
 @keyframes glow {
   from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00a5e6, 0 0 40px #006fe6, 0 0 50px #004de6, 0 0 60px #003de6, 0 0 70px #0008e6;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00a5e6,
+      0 0 40px #006fe6, 0 0 50px #004de6, 0 0 60px #003de6, 0 0 70px #0008e6;
   }
-  
+
   to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #dedede, 0 0 40px #b1b1b1, 0 0 50px #9e9e9e, 0 0 60px #767676, 0 0 70px #525252, 0 0 80px #2f2f2f;
+    text-shadow: 0 0 20px #fff, 0 0 30px #dedede, 0 0 40px #b1b1b1,
+      0 0 50px #9e9e9e, 0 0 60px #767676, 0 0 70px #525252, 0 0 80px #2f2f2f;
   }
 }
 
