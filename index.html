@@ -2,17 +2,84 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <title>Movie</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="#" />
+  <title>Fakeflex</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
-    <div class="container">
+
+  <nav class="navbar navbar-expand-lg" style="position: sticky; top: 0; z-index: 1" id="nav-bar">
+
+    <img src="./images/fakeflex-logo.png" alt="Fakeflex logo" id="fakeflex-logo" onclick="autorun()">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link text-color on-hover" href="#" onclick="runActors()">Actors</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-color on-hover" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Genres
+          </a>
+          <div class="dropdown-menu scrollbar" aria-labelledby="navbarDropdown" id="genresList">
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-color on-hover" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Filter
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" onclick="runPopularMovies()">Popular</a>
+            <a class="dropdown-item" href="#" onclick="runLatestMovies()">Release Date</a>
+            <a class="dropdown-item" href="#" onclick="runTopRatedMovies()">Top Rated</a>
+            <a class="dropdown-item" href="#" onclick="autorun()">Now Playing</a>
+            <a class="dropdown-item" href="#" onclick="runUpcomingMovies()">Upcoming</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-color on-hover" href="#" onclick="renderAbout()">About us</a>
+        </li>
+      </ul>
+
+     <form id="searchForm" class="form-inline my-2 my-lg-0">
+                <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button id="searchBtn" class="btn btn-outline-success my-2 my-sm-0 text-color" type="submit">Search</button>
+              </form>
     </div>
-    <script type="text/javascript" src="script.js"></script>
+  </nav>
+  <div class="container">
+  </div>
+  <footer class ="footer" id="footer">
+    <div>
+      <p style="display: inline-block;">Created by</p>
+      <a href="https://github.com/ghufran-adel
+      " class="text-color on-hover"><img src="./images/github-logo.png" alt="Github logo" width="25"> Ghufran</a>
+      <p style="display: inline-block;"> & </p>
+      <a href="https://github.com/NouhRastanawi" class="text-color on-hover"><img src="./images/github-logo.png" alt="Github logo" width="25"> Nouh Rastanawi</a>
+    </div>
+  </footer>
+  <script type="text/javascript" src="script.js"></script>
 </body>
 
 </html>
