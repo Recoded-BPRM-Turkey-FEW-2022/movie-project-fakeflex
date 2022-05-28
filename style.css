@@ -88,6 +88,19 @@ nav {
   width: 100%;
 }
 
+.about-footer {
+  position:absolute;
+  background-color: rgb(28, 70, 123);
+  border: solid rgb(55, 55, 55) 2px;
+  font-size: large;
+  padding: 0.3%;
+  text-align: center;
+  color: aliceblue;
+  text-decoration: none;
+  bottom: 0;
+  width: 100%;
+}
+
 .on-hover:hover {
   font-size: larger;
   color: aliceblue;

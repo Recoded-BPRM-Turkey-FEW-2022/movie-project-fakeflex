@@ -5,6 +5,7 @@ const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 const genresList = document.getElementById("genresList");
+const footer = document.getElementById("footer");
 
 
 // Don't touch this function please
@@ -89,6 +90,7 @@ const fetchMovie = async (movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+  footer.className = "footer";
   CONTAINER.className = "container";
   CONTAINER.innerHTML = "";
 
@@ -151,6 +153,7 @@ const movieOnleave = (movie) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie, credits, similars, video) => {
+  footer.className = "footer";
   CONTAINER.className = "single-movie-page";
 
   CONTAINER.innerHTML = `
@@ -375,6 +378,7 @@ const fetchActors = async () => {
 
 // This function is to render actors
 const renderActors = (actors) => {
+  footer.className = "footer";
   CONTAINER.className = "";
   CONTAINER.classList.add("container");
 
@@ -451,6 +455,7 @@ const fetchActorCredits = async (actorId) => {
 };
 
 const renderActor = (actor, actorCredits) => {
+  footer.className = "footer";
   CONTAINER.className = "";
   CONTAINER.innerHTML = `
   <div class="row " id="single-actor-page">
@@ -636,6 +641,7 @@ const renderGenresList = (genresArraylist) => {
 renderGenresList(genresArraylist);
 
 const renderAbout = () => {
+  footer.className = "about-footer";
   CONTAINER.className = "";
   CONTAINER.innerHTML = `
   <div class="flex-column">
